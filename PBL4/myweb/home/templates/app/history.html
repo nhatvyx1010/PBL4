@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        {% load static %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="stylesheet" href="{%static 'css/history.css' %}">
+        <link rel="stylesheet" href="{%static 'css/user.css' %}">
+        <link rel="stylesheet" href="{%static 'css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{%static 'css/all.min.css' %}">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="{%static 'js/all.min.js' %}"></script>
+        <script src="{%static 'js/owl.carousel.min.js' %}"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="header">
+            <h1>HỆ THỐNG QUẢN LÝ BÃI ĐỖ XE</h1>
+        </div>
+        <div class="container">
+            <div class="left-sidebar">
+                <div class="container">
+                    <div class="products">
+                        <div class="product"><a href="{% url 'index_staff' %}">Trang chủ</a></div>
+                        <div class="product"><a href="{% url 'manager' %}">Quản lý tài khoản</a></div>
+                        <div class="product"><a href="{% url 'history' %}">Xem lịch sử gửi xe</a></div>
+                        <div class="product"><a href="{% url 'index' %}">Đăng xuất</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="right-content">
+                <h2 class="table-heading">LỊCH SỬ GỬI XE</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Biển số xe</th>
+                            <th>Thời Gian Vào</th>
+                            <th>Thời Gian Ra</th>
+                            <th>Giá tiền</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>43H1-31166</td>
+                            <td>08:00 AM</td>
+                            <td>09:30 AM</td>
+                            <td>400000VND</td>
+                            <td class="actions">
+                                <button class="edit" id="Edit">Chi tiết</button>
+                            </td>
+                            <td class="actions">
+                                <button>Xóa</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="modal" id="myModal">
+            <div class="modal__overlay"></div>
+            <div class="modal__body_1">
+                   
+    
+                <!-- Form login -->
+                <div class="auth-form">
+                    <div class="auth-form__container">
+                        <div class="auth-form__header">
+                            <h3 class="auth-form__heading" >Chi tiết tài khoản</h3>
+                        </div>
+    
+                        <div class="auth-form__form">
+                            <!-- Replace input fields with fixed content -->
+                            <div class="auth-form__group">
+                                <strong>Họ và tên:</strong> Nguyễn Phạm Nhật Vỹ
+                            </div>
+                
+                            <div class="auth-form__group">
+                                <strong>Biển số xe:</strong> 43H1-31166
+                            </div>
+                
+                            <div class="auth-form__group">
+                                <strong>Số điện thoại:</strong> 0905873860
+                            </div>
+                
+                            <div class="auth-form__group">
+                                <strong>Địa chỉ:</strong> 54 Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng
+                            </div>
+                
+                            <div class="auth-form__group">
+                                <strong>Thời gian vào:</strong> 08:00 AM
+                            </div>
+                
+                            <div class="auth-form__group">
+                                <strong>Thời gian ra:</strong> 09:30 AM
+                            </div>
+                
+                            <div class="auth-form__group">
+                                <strong>Giá tiền:</strong> 400,000 VND
+                            </div>
+                        </div>
+                
+                        <div class="auth-form__controls">
+                            <button class="btn btn--normal auth-form__controls-back" id="backButton">TRỞ LẠI</button>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="{%static 'js/history.js' %}"></script>
+
+        <script src="" async defer></script>
+    </body>
+</html>

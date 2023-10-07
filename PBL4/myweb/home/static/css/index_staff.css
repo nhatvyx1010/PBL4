@@ -1,0 +1,226 @@
+.header {
+    background-color: #FBEEC1;
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: center;
+    width: 99.9%; 
+    margin: 0;
+}
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+}
+
+.content-container {
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.left-container {
+    width: 67%; 
+    height: 98%;
+    overflow: hidden;
+    float: left; 
+    text-align: center;
+    border: 2px solid gray;
+}
+
+.left-container h5{
+    margin: 0;
+    margin-top: 10px;
+    margin-left: 10px;
+    text-align: left;
+}
+.left-container img {
+    width: 80%;
+    height: auto;
+}
+
+.right-container {
+    height: 98%;
+    width: 32%;
+    text-align: center;
+    color: #333;
+    position: relative;
+    border: 2px solid gray;
+}
+
+
+
+.overlay-text h1 {
+    font-size: 40px; 
+    line-height: 1.5; 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+    color: rgb(143, 249, 255);
+}
+
+.overlay-text p {
+    font-size: 25px; 
+    color: rgb(143, 249, 255);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+}
+
+.camera-container {
+    margin: auto;
+    padding: 0;
+    width: 96%; 
+    height: 48%;
+}
+.camera-left-container, .camera-right-container,
+.plate-left-container, .plate-right-container,
+.character-left-container, .character-right-container{
+    width: 48%; 
+    height: 98%;
+    overflow: hidden;
+    text-align: center;
+    border: 2px solid gray;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+}
+.camera-right-container,
+.plate-right-container,
+.character-right-container {
+    float: right; 
+}
+.camera-left-container,
+.plate-left-container,
+.character-left-container {
+    float: left; 
+}
+
+.plate-container {
+    margin: auto;
+    padding: 0;
+    width: 96%; 
+    height: 24%;
+}
+.plate-container img {
+    max-height: 80%;
+    max-width: 80%; /* Đảm bảo ảnh không vượt quá chiều rộng của phần tử cha */
+}
+.character-container {
+    margin: auto;
+    padding: 0;
+    width: 96%; 
+    height: 12%;
+}
+.character-container img {
+    max-height: 80%;
+    max-width: 80%; 
+}
+
+
+/* right container*/
+.right-container h5{
+    margin: 0;
+    margin-top: 10px;
+    margin-left: 10px;
+    text-align: left;
+}
+.right-container h1 {
+    font-size: 30px; 
+    line-height: 1.5; 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+    color: rgb(143, 249, 255);
+}
+.right-container h4{
+    display: inline-block;
+    margin: 0;
+    margin-left: 20%;
+    margin-right: 20%;
+    
+}
+
+.user-in-left, .user-in-right,
+.user-out-left, .user-out-right{
+    width: 48%; 
+    height: 98%;
+    overflow: hidden;
+    text-align: center;
+    border: 2px solid gray;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+}
+.user-in-container {
+    margin: auto;
+    padding: 0;
+    width: 96%; 
+    height: 12vh;
+}
+.user-out-container {
+    margin: auto;
+    padding: 0;
+    width: 96%; 
+    height: 36vh;
+}
+.user-in-right ,
+.user-out-right {
+    float: right; 
+}
+.user-in-left ,.user-out-left {
+    float: left; 
+}
+
+
+
+
+
+
+.container {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    height: 85%;
+}
+.left-sidebar {
+    background-color:#EAE7DC;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 24px;
+    width: 15vw;
+}
+.products {
+    display: flex;
+    flex-direction: column;
+}
+.product {
+    background-color: #ffffff;
+    border: 1px solid #acb9df;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    flex-basis: 100%; 
+}
+.product a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+.product a:hover {
+    color: #D8C3A5;
+}
+
+.right-content {
+    background-color: #f0f0f0;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        {% load static %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="stylesheet" href="{%static 'css/addsucc.css' %}">
+        <link rel="stylesheet" href="{%static 'css/addacc.css' %}">
+        <link rel="stylesheet" href="{%static 'css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{%static 'css/all.min.css' %}">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="{%static 'js/all.min.js' %}"></script>
+        <script src="{%static 'js/owl.carousel.min.js' %}"></script>
+
+        
+        <title>Thêm thành công</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="header">
+            <h1>HỆ THỐNG QUẢN LÝ BÃI ĐỖ XE</h1>
+        </div>
+        <div class="container">
+            <div class="left-sidebar">
+                <div class="container">
+                    <div class="products">
+                        <div class="product"><a href="#">Quản lý tài khoản</a></div>
+                        <div class="product"><a href="#">Thêm tài khoản</a></div>
+                        <div class="product"><a href="#">Xem lịch sử gửi xe</a></div>
+                        <div class="product"><a href="#">Đăng xuất</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="right-content">
+                <div class="centered">
+                    <div class="upload-photo">
+                        <input type="file" id="photo-upload" accept="image/*">
+                        <label for="photo-upload">
+                            <img src="./static/imgages/Ảnh thẻ.jpg" alt="Upload Photo">
+                        </label>
+                    </div>
+                    <div class="info-form">
+                        <input type="text" placeholder="Biển số xe">
+                        <input type="text" placeholder="Họ và Tên">
+                        <input type="text" placeholder="Địa chỉ">
+                        <input type="text" placeholder="Số điện thoại">
+                        <input type="text" placeholder="Email">
+                        <button class="update-button">Thêm tài khoản</button> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal">
+            <div class="modal__overlay"></div>
+            <div class="modal__body">
+                <div class="success-modal">
+                    <i class="fa-regular fa-circle-check fa-beat fa-2xl" style="color: #ffcc14;"></i>
+                    <h3 class="success-modal__heading">Thêm tài khoản thành công</h3>
+                </div>
+            </div>
+        </div>
+        <script src="" async defer></script>
+    </body>
+</html>

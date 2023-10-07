@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        {% load static %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="stylesheet" href="{%static 'css/user.css' %}">
+        <link rel="stylesheet" href="{%static 'css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{%static 'css/all.min.css' %}">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="{%static 'js/all.min.js' %}"></script>
+        <script src="{%static 'js/owl.carousel.min.js' %}"></script>
+
+        
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="header">
+            <h1>HỆ THỐNG QUẢN LÝ BÃI ĐỖ XE</h1>
+        </div>
+        <div class="menu">
+            <div class="menu-item" id="home">
+                <span>
+                    <i class="fa fa-home" aria-hidden="true"></i>
+                    Trang chủ
+                </span>
+                
+            </div>
+            <hr class="menu-divider">
+            <div class="menu-item" id="history">
+                <span>
+                    <i class="fa fa-history" aria-hidden="true"></i>
+                    Lịch sử gửi xe
+                </span>
+                
+            </div>
+            <hr class="menu-divider"> 
+            <div class="menu-item" id="logout">
+                <span>
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    Đăng xuất
+                </span>
+                
+            </div>
+        </div>
+    
+        <div class="profile">
+            <div class="profile-image">
+                <img src="./static/images/Ảnh thẻ.jpg" alt="Profile Image">
+            </div>
+            <div class="profile-info">
+                <div class="info-row">
+                    <label for="fullName">Họ và tên:</label>
+                    <input type="text" id="fullName" name="fullName">
+                </div>
+                <div class="info-row">
+                    <label for="phoneNumber">Số điện thoại:</label>
+                    <input type="tel" id="phoneNumber" name="phoneNumber">
+                </div>
+                <div class="info-row">
+                    <label for="address">Địa chỉ:</label>
+                    <input type="text" id="address" name="address">
+                </div>
+                <button id="updateButton">Cập nhật thông tin</button>
+            </div>
+        </div>
+        <div class="modal">
+            <div class="modal__overlay"></div>
+            <div class="modal__body">
+                <div class="success-modal">
+                    <i class="fa-regular fa-circle-check fa-beat fa-2xl" style="color: #ffcc14;"></i>
+                    <h3 class="success-modal__heading">Cập nhật thành công</h3>
+                </div>
+            </div>
+        </div>
+        
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Số thứ tự</th>
+                    <th>Biển số xe</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>43H1-31166</td>
+                </tr>
+            </tbody>
+        </table>
+        <script src="" async defer></script>
+    </body>
+</html>
