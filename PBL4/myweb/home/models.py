@@ -1,55 +1,68 @@
 from django.db import models
-from django.forms import ModelForm, Textarea
+from django.utils import timezone
+import random, string
 
-from django.contrib.auth.models import AbstractUser
-class User(AbstractUser):
-    avatar = models.ImageField(upload_to='/uploads/%Y/%m')
-# Create your models here.
-class User_Plate_Number(models.Model):
-    user_id = models.CharField(primary_key=True, max_length=10)
-    plate_number = models.CharField(max_length=20)
-class user(models.Model):
-    user_id = models.CharField(max_length=10, primary_key=True)
-    fullname = models.CharField(max_length=255)
-    address = models.CharField(max_length=255)
-    phone = models.CharField(max_length=20)
-    email = models.CharField(max_length=255)
-    photo = models.CharField(max_length=255)
-    def __str__(self):
-        return self.user_id
-class staff(models.Model):
-    staff_id = models.CharField(primary_key=True, max_length=10)
-    fullname = models.CharField(max_length=255)
-    date_of_birth = models.DateField()
-    gender = models.CharField(max_length=10)
-    address = models.CharField(max_length=255)
-    state = models.IntegerField(max_length=4)
-    phone = models.CharField(max_length=20)
-    email = models.CharField(max_length=50)
-    photo = models.CharField(max_length=255)
-class Parking(models.Model):
-    stt = models.IntegerField(primary_key=True, max_length=3)
-    plate_number = models.ForeignKey(max_length=20)
-    time_in = models.DateTimeField(auto_now_add=True)
-class Parking_History(models.Model):
-    plate_number = models.OneToOneField(Parking, max_length=20, on_delete=models.CASCADE, primary_key=True)
-    user_id = models.ForeignKey(user, on_delete=models.CASCADE, max_length= 10)
-    time_in = models.DateTimeField(auto_now_add=True)
-    time_out = models.DateTimeField(auto_now_add=True)
-    state = models.IntegerField(max_length=3)
-    total = models.FloatField()
+def generate_random_user_id():
+    random_number = random.randint(0, 999999)
+    return f"user{random_number:08d}"  # Định dạng thành số có 4 chữ số
 
-class Login(models.Model):
-    id = models.CharField(max_length=10, primary_key=True)
-    username = models.CharField(max_length=255)
-    password = models.CharField(max_length=255)
-    email = models.CharField(max_length=255)
-    fullname = models.CharField(max_length=255)
-    role = models.CharField(max_length=255)
+
+def generate_random_staff_id():
+    random_number = random.randint(0, 999999)
+    return f"user{random_number:08d}"  # Định dạng thành số có 4 chữ số
+
+def generate_random_parking_history_id():
+    random_number = random.randint(0, 999999)
+    return f"park{random_number:08d}"  # Định dạng thành số có 4 chữ số
+
+class LicensePlates(models.Model):
+    license_platesID = models.CharField(max_length=15, primary_key=True)
+    license_plates = models.CharField(max_length=15)
+
+class LicensePlatesUser(models.Model):
+    userID = models.CharField(max_length=15)
+    license_plates = models.ForeignKey(LicensePlates, on_delete=models.CASCADE)
+
+class LicensePlatesParking(models.Model):
+    parking_historyID = models.CharField(max_length=15)
+    license_plates = models.ForeignKey(LicensePlates, on_delete=models.CASCADE)
+
+class ParkingHistory(models.Model):
+    parking_historyID = models.CharField(max_length=15, primary_key=True, default=generate_random_parking_history_id())
+    license_plates = models.ForeignKey(LicensePlates, on_delete=models.CASCADE, default='')
     state = models.IntegerField()
-class Login_Staff(models.Model):
-    id = models.OneToOneField(Login, primary_key=True, max_length=10, on_delete=models.CASCADE)
-    staff_id = models.ForeignKey(staff, on_delete=models.CASCADE, max_length=10)
-class Login_User(models.Model):
-    id = models.OneToOneField(Login, primary_key=True, max_length=10, on_delete=models.CASCADE)
-    user_id = models.ForeignKey(user, on_delete=models.CASCADE, max_length=10)
+    date_in = models.DateField(default=timezone.now)
+    date_out = models.DateField(default=timezone.now)
+    time_in = models.TimeField()
+    time_out = models.TimeField()
+    total = models.FloatField()
+    note = models.TextField(default='')
+
+class StaffParking(models.Model):
+    staffID = models.CharField(max_length=15)
+    parking_history = models.ForeignKey(ParkingHistory, on_delete=models.CASCADE)
+
+class Staff(models.Model):
+    staff_id = models.CharField(max_length=15, primary_key=True, default=generate_random_staff_id())
+    fullname = models.CharField(max_length=255)
+    date_of_birth = models.DateField(null=True)
+    gender = models.CharField(max_length=10)
+    position = models.CharField(max_length=255)
+    state = models.IntegerField()
+    phone = models.CharField(max_length=20, null=True)
+    email = models.CharField(max_length=50, null=True)
+    photo = models.CharField(max_length=255, null=True)
+
+class User(models.Model):
+    id = models.CharField(max_length=15, primary_key=True, default=generate_random_user_id())
+    username = models.CharField(max_length=20,null=True)
+    email = models.CharField(max_length=50, null=True)
+    password = models.CharField(max_length=255, null=True)
+    fullname = models.CharField(max_length=50, null=True)
+    date_of_birth = models.DateField(null=True)
+    position = models.CharField(max_length=255, null=True)
+    phone = models.CharField(max_length=20, null=True)
+    account_balance = models.FloatField(default=0.0)
+    role = models.CharField(max_length=10, null=True)
+    photo = models.CharField(max_length=255, null=True)
+
