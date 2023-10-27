@@ -8,16 +8,12 @@
         {% load static %}
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <link rel="stylesheet" href="{%static 'css/userhistory.css' %}">
-        <link rel="stylesheet" href="{%static 'css/owl.carousel.min.css' %}">
-        <link rel="stylesheet" href="{%static 'css/all.min.css' %}">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="{%static 'css/history_user.css' %}">
         <script src="{%static 'js/all.min.js' %}"></script>
         <script src="{%static 'js/owl.carousel.min.js' %}"></script>
 
         
-        <title></title>
+        <title>Lịch sử tài khoản</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="">
@@ -33,9 +29,9 @@
             <div class="left-sidebar">
                 <div class="container">
                     <div class="products">
-                        <div class="product"><a href="infouser.html">Cập nhật thông tin</a></div>
-                        <div class="product"><a href="#">Xem lịch sử gửi xe</a></div>
-                        <div class="product"><a href="#">Đăng xuất</a></div>
+                        <div class="product"><a href="{% url 'indexUser' %}">Cập nhật thông tin</a></div>
+                        <div class="product"><a href="{% url 'historyUser' %}">Xem lịch sử gửi xe</a></div>
+                        <div class="product"><a href="{% url 'index' %}">Đăng xuất</a></div>
                     </div>
                 </div>
             </div>
@@ -51,14 +47,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>43H1-31166</td>
-                            <td>08:00 AM</td>
-                            <td>09:30 AM</td>
-                            <td>400000VND</td>
-                        </tr>
+                        {% for history in parking_history %}
+                            <tr>
+                                <td>{{ history.license_plates.license_plates }}</td>
+                                <td>{{ history.time_in }}</td>
+                                <td>{{ history.time_out }}</td>
+                                <td>{{ history.total }}VND</td>
+                            </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
+                
             </div>
         </div>
         <script src="" async defer></script>
