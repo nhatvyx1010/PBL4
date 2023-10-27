@@ -81,19 +81,7 @@ body {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
 }
 
-.loginButton, .registerButton{
-    background-color: aqua;
-    min-width: 120px;
-    height: 36px;
-    text-decoration: none;
-    border: none;
-    border-radius: 3px;
-    font-size: 18px;
-    padding: 0;
-    cursor: pointer;
-}
-input[type="submit"],
-input[type="reset"] {
+input[type="button"] {
     padding: 10px 20px;
     margin-right: 10px;
     background-color: rgb(143, 249, 255);
@@ -120,7 +108,7 @@ input[type="reset"]:hover {
 .product-benefits h2 {
     font-size: 45px;
     margin-top: 20px; 
-    color: #374785;
+    color: rgb(226, 149, 56);
 }
 
 .product-benefits img{
@@ -130,39 +118,9 @@ input[type="reset"]:hover {
 }
 
 .colored-line {
-    background: #374785;
+    background: rgb(226, 149, 56);
     margin: auto;
     z-index: 1;
     width: 165px;
     height: 1px;
-}
-
-/* Kiểu dáng cho nút "Đăng nhập" */
-.btn--normal {
-    background-color: #ccc; /* Màu nền */
-    color: #000; /* Màu chữ */
-    border: 2px solid #000; /* Viền */
-    border-radius: 5px; /* Góc bo tròn */
-    padding: 10px 20px; /* Kích thước và khoảng cách nội dung */
-    font-size: 18px; /* Kích thước chữ */
-    cursor: pointer;
-}
-
-.btn--normal:hover {
-    background-color: #aaa; /* Màu nền khi hover */
-}
-
-/* Kiểu dáng cho nút "Đăng ký" */
-.btn--primary {
-    background-color: #e6d390; /* Màu nền */
-    color: #000; /* Màu chữ */
-    border: 2px solid #000; /* Viền */
-    border-radius: 5px; /* Góc bo tròn */
-    padding: 10px 20px; /* Kích thước và khoảng cách nội dung */
-    font-size: 18px; /* Kích thước chữ */
-    cursor: pointer;
-}
-
-.btn--primary:hover {
-    background-color: #d9c17a; /* Màu nền khi hover */
 }

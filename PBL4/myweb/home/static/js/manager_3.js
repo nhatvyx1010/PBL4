@@ -19,3 +19,4 @@ window.onclick = function(event) {
         modal_1.style.display = "none";
     }
 };
+
