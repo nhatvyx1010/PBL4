@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        {% load static %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="stylesheet" href="{%static 'css/user_user.css' %}">
+        <link rel="stylesheet" href="{%static 'css/manageruser.css' %}">
+        <link rel="stylesheet" href="{%static 'css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{%static 'css/all.min.css' %}">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="{%static 'js/all.min.js' %}"></script>
+        <script src="{%static 'js/owl.carousel.min.js' %}"></script>
+
+        
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="header">
+            <h1>HỆ THỐNG QUẢN LÝ BÃI ĐỖ XE</h1>
+        </div>
+        <div class="container">
+            <div class="left-sidebar">
+                <div class="container">
+                    <div class="products">
+                        <div class="product"><a href="{% url 'indexUser' %}">Cập nhật thông tin</a></div>
+                        <div class="product"><a href="{% url 'historyUser' %}">Xem lịch sử gửi xe</a></div>
+                        <div class="product"><a href="{% url 'index' %}">Đăng xuất</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="right-content">
+                <div class="profile">
+                    <div class="profile-image">
+                        <!-- <img src="./webapp/img/Ảnh thẻ.jpg" alt="Profile Image"> -->
+                        <img src="{%static 'images/sora.jpg'%}" alt="Profile Image">
+                    </div>
+                    <div class="profile-info">
+                        {% block content %}
+                        <div class="info-row">
+                            <label for="fullName">Họ và tên:</label>
+                            <input type="text" id="fullName" name="fullName" value="{{user.fullname}}" disabled>
+                        </div>
+                        <div class="info-row">
+                            <label for="phoneNumber">Số điện thoại:</label>
+                            <input type="tel" id="phoneNumber" name="phoneNumber" value="{{user.phone}}" disabled>
+                        </div>
+                        <div class="info-row">
+                            <label for="address">Địa chỉ:</label>
+                            <input type="text" id="address" name="address" value="{{user.position}}" disabled>
+                        </div>
+                        {% endblock %}
+                        <div class="button-container"> <!-- Di chuyển nút ra ngoài phần profile-info -->
+                            <button class="updateButton" id="updateButton">Cập nhật thông tin</button>
+                            <button class="addButton_add" id="addButton_add">Thêm biển số</button>
+                        </div> 
+                    </div>
+                </div>
+                
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Số thứ tự</th>
+                            <th>Biển số xe</th>
+                        </tr>
+                    </thead>
+                    <tbody id="licensePlateTableBody">
+                        {% for lp in license_plates %}
+                        <tr>
+                            <input type="hidden" name="user_id" value="{{ user.id }}">
+                            <td name="counter" value="{{ forloop.counter }}">{{ forloop.counter }}</td> <!-- Số thứ tự -->
+                            <td name="license_plates" value="{{ lp.license_plates.license_plates }}">
+                                {{ lp.license_plates.license_plates }}</td> <!-- Biển số xe -->
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="modal_add" id="myModal_add">
+            <span class="modal__overlay_add"></span>
+            <div class="modal__body_add">
+                <!-- Form login -->
+                <div class="auth-form">
+                    <div class="auth-form__container">
+                        <div class="auth-form__header">
+                            <h3 class="auth-form__heading">Thêm biển số xe</h3>
+                        </div>
+                        <form method="post" action="{% url 'addLicensePlate_User'%}">
+                            {% csrf_token %}
+                            <input type="hidden" name="user_id" value="{{ user.id }}">
+                            <div class="auth-form__form">
+                                <div class="auth-form__group">
+                                    <input type="text" class="auth-form__input" name="license_plates" value="{{user.license_plates}}" placeholder="Biển số xe:">
+                                </div>
+                            </div>
+                            <div class="auth-form__controls">
+                                <button class="btn btn--normal auth-form__controls-back" id="backButton_add" type="button">TRỞ LẠI</button>
+                                <button class="btn--primary" type="submit">CẬP NHẬT</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="myModal">
+            <span class="modal__overlay"></span>
+            <div class="modal__body">
+                <!-- Form login -->
+                <div class="auth-form">
+                    <div class="auth-form__container">
+                        <div class="auth-form__header">
+                            <h3 class="auth-form__heading">Cập nhật thông tin</h3>
+                        </div>
+                        <form method="post" action="{% url 'updateUser'%}">
+                            {% csrf_token %}
+                            <input type="hidden" name="user_id" value="{{ user.id }}">
+                            <div class="auth-form__form">
+                                <div class="auth-form__group">
+                                    <input type="text" class="auth-form__input" name="fullname" value="{{user.fullname}}" placeholder="Họ và tên">
+                                </div>
+                                <div class="auth-form__group">
+                                    <input type="text" class="auth-form__input" name="email" placeholder="Email" value="{{user.email}}">
+                                </div>
+                                <div class="auth-form__group">
+                                    <input type="text" class="auth-form__input" name="phone" value="{{user.phone}}" placeholder="Số điện thoại">
+                                </div>
+                                <div class="auth-form__group">
+                                    <input type="date" class="auth-form__input" name="date_of_birth" value="{{user.date_of_birth|date:'Y-m-d'}}" placeholder="Ngày sinh">
+                                </div>
+                                <div class="auth-form__group">
+                                    <input type="text" class="auth-form__input" name="position" value="{{user.position}}" placeholder="Địa chỉ">
+                                </div>
+                            </div>
+                                <div class="auth-form__controls">
+                                    <button class="btn btn--normal auth-form__controls-back" id="backButton" type="button">TRỞ LẠI</button>
+                                    <button class="btn--primary" type="submit">CẬP NHẬT</button>
+                                </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script src="{%static 'js/index_Us.js' %}"></script>
+        <script src="" async defer></script>
+    </body>
+</html>

@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        {% load static %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="stylesheet" href="{%static 'css/Manager.css' %}">
+        <link rel="stylesheet" href="{%static 'css/add_user.css' %}">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="{%static 'js/all.min.js' %}"></script>
+        <script src="{%static 'js/owl.carousel.min.js' %}"></script>
+
+        
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <script>
+            function searchUsername() {
+                var input, filter, rows, cell, i, txtValue;
+                input = document.getElementById("searchUsernameInput");
+                filter = input.value.toUpperCase();
+                rows = document.getElementsByClassName("user-data-row");
+
+                // Lặp qua từng dòng của bảng và ẩn/hiển thị dựa trên tên người dùng
+                for (i = 0; i < rows.length; i++) {
+                    cell = rows[i].getElementsByTagName("td")[0]; // Lấy ô chứa tên người dùng, thay đổi chỉ số nếu cần
+                    if (cell) {
+                        txtValue = cell.textContent || cell.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            rows[i].style.display = "";
+                        } else {
+                            rows[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+            function searchPlate() {
+                var input, filter, rows, cell, i, txtValue;
+                input = document.getElementById("searchPlateInput");
+                filter = input.value.toUpperCase();
+                rows = document.getElementsByClassName("user-data-row");
+
+                // Lặp qua từng dòng của bảng và ẩn/hiển thị dựa trên tên người dùng
+                for (i = 0; i < rows.length; i++) {
+                    cell = rows[i].getElementsByTagName("td")[3]; // Lấy ô chứa tên người dùng, thay đổi chỉ số nếu cần
+                    if (cell) {
+                        txtValue = cell.textContent || cell.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            rows[i].style.display = "";
+                        } else {
+                            rows[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="header">
+            <h1>HỆ THỐNG QUẢN LÝ BÃI ĐỖ XE</h1>
+        </div>
+        <div class="container">
+            <div class="left-sidebar">
+                <div class="container">
+                    <div class="products">
+                        <div class="product"><a href="{% url 'indexStaff' %}">Trang chủ</a></div>
+                        <div class="product"><a href="{% url 'managerStaff' %}">Quản lý tài khoản</a></div>
+                        <div class="product"><a href="{% url 'historyStaff' %}">Xem lịch sử gửi xe</a></div>
+                        <div class="product"><a href="{% url 'index' %}">Đăng xuất</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="right-content">
+                <!-- Create a flex container for the search box and button -->
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" id="searchPlateInput" placeholder="Nhập biển số xe" oninput="searchPlate()">
+                        <button><i class="fas fa-search"></i></button>
+                        <input type="text" id="searchUsernameInput" placeholder="Nhập tên" oninput="searchUsername()">
+                        <button><i class="fas fa-search"></i></button>
+                        <button class="add-account-button" id="Add">Thêm tài khoản</button>
+                    </div>
+                </div>
+                
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Họ và Tên</th>
+                            <th>Số điện thoại</th>
+                            <th>Địa chỉ</th>
+                            <th>Biển số xe</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user_data in all_users %}
+                        <tr class="user-data-row">
+                            <td>{{ user_data.user.fullname }}</td>
+                            <td>{{ user_data.user.phone }}</td>
+                            <td>{{ user_data.user.position }}</td>
+                            <td>
+                                <ul>
+                                    {% for plate_number in user_data.plate_numbers %}
+                                        <li>{{ plate_number }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                            <!-- Các thẻ khác của bảng -->
+                            <td class="actions">
+                                <form action="{% url 'managerStaff_User' %}" method="post">
+                                    {% csrf_token %}
+                                    <button class="edit" name="user_id_manage" value="{{ user_data.user.id }}" >Chỉnh sửa</button>
+                                </form>
+                            </td>
+                            <td class="actions">
+                                <form action="{% url 'managerStaff_delete' %}" method="post">
+                                    {% csrf_token %}
+                                    <button name="user_id_delete" value="{{ user_data.user.id }}" >Xóa</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="modal" id="myModal">
+            <div class="modal__overlay"></div>
+            <div class="modal__body">
+                   
+    
+                <!-- Form login -->
+                
+                <!-- Form register -->
+                <form method="post" action="{% url 'managerStaff_register' %}">
+                    {% csrf_token %}
+                    <div class="auth-form">
+                        <div class="auth-form__container">
+                            <div class="auth-form__header">
+                                <h3 class="auth-form__heading" >Thêm tài khoản</h3>
+                            </div>
+        
+                            <div class="auth-form__form">
+                                <div class="auth-form__group">
+                                    <input type="text" class="auth-form__input" name="username" placeholder="Username">
+                                </div>
+                                <div class="auth-form__group">
+                                    <input type="text" class="auth-form__input" name="password" placeholder="Password">
+                                </div>
+                                <div class="auth-form__group">
+                                    <input type="text" class="auth-form__input" name="fullname" placeholder="Họ và tên">
+                                </div>
+                                <div class="auth-form__group">
+                                    <input type="text" class="auth-form__input" name="email" placeholder="Email">
+                                </div>
+                                <div class="auth-form__group">
+                                    <input type="date" class="auth-form__input" name="date_of_birth" placeholder="Ngày sinh">
+                                </div>
+                                <div class="auth-form__group">
+                                    <input type="text" class="auth-form__input" name="position" placeholder="Địa chỉ">
+                                </div>
+                                <div class="auth-form__group">
+                                    <input type="text" class="auth-form__input" name="phone" placeholder="Số điện thoại">
+                                </div>
+                                <div class="auth-form__group">
+                                    <input type="text" class="auth-form__input" name="account_balance" placeholder="account_balance">
+                                </div>
+                                
+                                <div class="auth-form__group">
+                                    <input type="text" class="auth-form__input" name="plate_number" placeholder="Biển số xe">
+                                </div>
+                            </div>
+        
+                            <div class="auth-form__controls">
+                                <button class="btn btn--normal auth-form__controls-back" id="backButton" type="button">TRỞ LẠI</button>
+                                <button class="btn--primary " type="submit" >THÊM</button>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    
+
+        <script src="" async defer></script>
+        <script src="{%static 'js/manager_1.js' %}"></script>
+        <script src="{%static 'js/manager_2.js' %}"></script>
+        <script src="{%static 'js/manager_3.js' %}"></script>
+        
+        
+    </body>
+</html>

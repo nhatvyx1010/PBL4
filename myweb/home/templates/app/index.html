@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="{%static 'css/register2.css' %}">
+    <link rel="stylesheet" href="{%static 'css/index.css' %}">
+
+    <script src="{%static 'js/all.min.js' %}"></script>
+    <script src="{%static 'js/owl.carousel.min.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+    <title>Home page</title>
+</head>
+<body>
+    <div class="bg">
+        <img src="{% static 'images/baido.jpg'%}">
+    </div>
+    <div class="logo-container">
+        <div class="img-logo-container">
+            <img src="{% static 'images/logo.png'%}" alt="Hình ảnh logo">
+        </div>
+    </div>
+    <div class="content-container">
+        <div class="image-container">
+            <img src="{% static 'images/Parking.png'%}" alt="Hình ảnh">
+        </div>
+        <div class="overlay-text">
+            <h1>BÃI ĐỖ XE THÔNG MINH</h1>
+            <p>Cung cấp thông tin bãi đỗ theo thời gian thực, tìm kiếm dễ dàng, đặt chỗ nhanh chóng, thanh toán linh hoạt.</p>
+            <button class="loginButton" id="loginButton" data-modal="loginModal">Đăng nhập</button>
+            <button class="registerButton" id="registerButton" data-modal="registerModal">Đăng ký</button>
+        </div>
+        
+    </div>
+
+    <div class="modal" id="loginModal">
+        <div class="modal__overlay"></div>
+        <div class="modal__body">
+    
+            <!-- Form login -->
+            <div class="auth-form">
+                <div class="auth-form__container">
+                    <div class="auth-form__header">
+                        <h3 class="auth-form__heading">Đăng nhập</h3>
+                    </div>
+    
+                    <form method="post" action="{% url 'login' %}"  id="loginForm">
+                        {% csrf_token %}
+                        <div class="auth-form__form">
+                            <div class="auth-form__group">
+                                <input type="text" name="username" class="auth-form__input" placeholder="Tên Đăng Nhập" id="loginUsername">
+                            </div>
+    
+                            <div class="auth-form__group">
+                                <input type="password" name="password" class="auth-form__input" placeholder="Mật khẩu" id="loginPassword">
+                            </div>
+                            <p id="loginError" class="error-message"></p>
+                        </div>
+    
+                        <div class="auth-form__controls">
+                            <button class="btn btn--normal auth-form__controls-back " id="loginBackButton" type="button">TRỞ LẠI</button>
+                            <button type="submit" class="btn--primary " id="loginSubmitButton">ĐĂNG NHẬP</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    </div>
+
+    <!-- register.html -->
+    <div class="modal" id="registerModal">
+        <div class="modal__overlay"></div>
+        <div class="modal__body">
+            <!-- Form register -->
+            <form method="post" action="{% url 'register' %}">
+                {% csrf_token %}
+                <div class="auth-form">
+                    <div class="auth-form__container">
+                        <div class="auth-form__header">
+                            <h3 class="auth-form__heading">Đăng ký</h3>
+                        </div>
+
+                        <div class="auth-form__form">
+                            <div class="auth-form__group">
+                                <input type="text" class="auth-form__input" name="registerName" placeholder="Họ và tên" id="registerName">
+                            </div>
+                            <div class="auth-form__group">
+                                <input type="text" class="auth-form__input" name="registerEmail" placeholder="Email" id="registerEmail">
+                            </div>
+                            <div class="auth-form__group">
+                                <input type="text" class="auth-form__input" name="registerDob" placeholder="Ngày sinh" id="registerDob">
+                            </div>
+                            <div class="auth-form__group">
+                                <input type="text" class="auth-form__input" name="registerAddress" placeholder="Địa chỉ" id="registerAddress">
+                            </div>
+                            <div class="auth-form__group">
+                                <input type="text" class="auth-form__input" name="registerPhone" placeholder="Số điện thoại" id="registerPhone">
+                            </div>
+                            <div class="auth-form__group">
+                                <input type="text" class="auth-form__input" name="registerUsername" placeholder="Tên Đăng Nhập" id="registerUsername">
+                            </div>
+                            <div class="auth-form__group">
+                                <input type="password" class="auth-form__input" name="registerPassword" placeholder="Mật khẩu" id="registerPassword">
+                            </div>
+                            <div class="auth-form__group">
+                                <input type="password" class="auth-form__input" name="registerPasswordConfirm" placeholder="Nhập Lại Mật Khẩu" id="registerPasswordConfirm">
+                            </div>
+                            <p id="registerError" class="error-message"></p>
+                        </div>
+
+                        <div class="auth-form__controls">
+                            <button class="btn btn--normal auth-form__controls-back" type="button" id="registerBackButton">TRỞ LẠI</button>
+                            <button class="btn--primary" type="submit" id="registerSubmitButton">ĐĂNG KÝ</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="product-benefits"> 
+        <h2>LỢI ÍCH SẢN PHẨM</h2>
+        <div class="colored-line"></div>
+        <img src="{% static 'images/Benefit.png'%}" alt="Hình ảnh sản phẩm">
+    </div>
+    <script src="{%static 'js/index.js' %}"></script>
+
+    
+</body>
+</html>

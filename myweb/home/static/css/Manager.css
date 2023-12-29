@@ -1,0 +1,156 @@
+
+.header {
+    background-color: #FBEEC1;
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: center;
+    width: 99.9vw; 
+    margin: 0;
+}
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+}
+.container {
+    display: flex;
+    flex: 1;
+    width: 100%;
+}
+.left-sidebar {
+    background-color:#EAE7DC;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 24px;
+    width: 15vw;
+}
+.products {
+    display: flex;
+    flex-direction: column;
+}
+.product {
+    background-color: #ffffff;
+    border: 1px solid #acb9df;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    flex-basis: 100%; 
+}
+.product a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+.product a:hover {
+    color: #D8C3A5;
+}
+
+.right-content {
+    background-color: #f0f0f0;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center-align contents horizontally */
+    flex-wrap: wrap; /* Allow contents to wrap if needed */
+    margin-left: 330px;
+    margin-right: 50px;
+}
+.search-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    width: 100%;
+    margin-left: 35px;
+    margin-right: 35px;
+}
+.search-box input[type="text"] {
+    padding: 10px;
+    border: 1px solid #D9B08C;
+    border-radius: 5px;
+    width: 200px; /* Decrease the width to make space for buttons */
+    margin-right: 10px;
+}
+.search-box button {
+    padding: 10px 20px;
+    background-color: #D9B08C;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px; 
+}
+
+.search-box .add-account-button {
+    background-color: #a26836;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    width: 150px;
+}
+/* Style the button on hover */
+.add-account-button:hover {
+    background-color: #D9B08C;
+}
+
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.data-table th, .data-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+.data-table th {
+    background-color: #f0f0f0;
+}
+
+.data-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.data-table td.actions {
+    text-align: center;
+}
+
+.data-table td.actions button {
+    padding: 5px 10px;
+    background-color: #FF6347; 
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.data-table td.actions button.edit {
+    background-color: #4CAF50; 
+}
+
+.data-table td.actions button.edit {
+    background-color: #4CAF50; 
+    margin-right: 0; 
+}
+.data-table td.actions button.delete {
+    background-color: #FF6347; 
+}

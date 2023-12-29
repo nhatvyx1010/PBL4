@@ -1,0 +1,349 @@
+.header {
+    background-color: #FBEEC1;
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: center;
+    width: 99.9vw; 
+    margin: 0;
+}
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+}
+
+
+.menu {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #FBEEC1;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-top: 20px;
+    padding: 10px;
+    width: 98.5vw;
+    cursor: default;
+}
+
+.menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.menu-divider {
+    border-left: 1px solid #000; 
+    height: 30px; 
+    margin: 0 10px; 
+}
+
+.menu-item img {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 5px;
+}
+
+.menu-item span {
+    font-size: 25px;
+    transition: color 0.3s;
+}
+
+.menu-item:hover span {
+    color: #D8C3A5;
+}
+
+.profile-container {
+    display: flex;
+    justify-content: center; 
+    height: 100px; 
+    text-align: center; 
+}
+
+.profile {
+    display: flex;
+    width: 70%;
+    justify-content: center;
+    align-items: center; 
+    margin-top: 20px;
+    margin-left: 15%;
+    margin-right: 15%;
+    text-align: center; 
+}
+
+.profile-info {
+    text-align: left;
+    max-width: 700px;
+}
+
+.profile-image img {
+    width: 110px;
+    height: 145px;
+    border-radius: 50%;
+}
+
+.profile-image img {
+    width: 110px;
+    height: 145px;
+    border-radius: 50%;
+}
+
+.info-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.info-row input {
+    flex: 1;
+    padding: 5px;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    border-radius: 3px;
+    background-color: transparent;
+    color: #000;
+    font-weight: bold;
+    width: 100%; 
+}
+
+
+
+label {
+    width: 120px;
+    text-align: right;
+    margin-right: 10px;
+}
+
+input {
+    flex: 1;
+    padding: 5px;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    border-radius: 3px;
+    background-color: transparent;
+    color: #000;
+    font-weight: bold;
+}
+.button-container {
+    display: flex;
+    justify-content: space-between; 
+    margin-top: 10px;
+}
+
+button {
+    padding: 5px 10px;
+    background-color: #D9B08C;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    flex: 1; 
+    margin-right: 10px; 
+}
+
+button:last-child {
+    margin-right: 0; 
+}
+
+button:hover {
+    background-color: #A8876A;
+}
+
+.data-table {
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th, .data-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal__body {
+    width: 530px;
+    height: 510px;
+    background-color: white;
+    border-radius: 5px;
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    padding: 20px;
+    position: fixed; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    z-index: 999;
+}
+
+.modal.active {
+    display: flex;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal__overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    top: 0; 
+    left: 0; 
+    z-index: 998;
+}
+
+.auth-form {
+    width: 500px;
+}
+
+.auth-form__container {
+    padding: 0 32px;
+}
+
+.auth-form__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.auth-form__heading {
+    font-size: 2.2rem;
+    font-weight: 400;
+    color: var(--text-color);
+}
+
+.auth-form__switch-btn {
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--my-color-1);
+    cursor: pointer;
+}
+
+.auth-form__form {
+    margin-top: 16px;
+}
+
+.auth-form__input {
+    width: 100%;
+    height: 40px;
+    margin-top: 16px;
+    padding: 0 12px;
+    font-size: 18px;
+    border-radius: 2.5px;
+    outline: none;
+}
+
+.auth-form__input:focus {
+    border-color: #e6d390;
+}
+
+.auth-form__controls {
+    margin-top: 80px;
+    display: flex;
+    justify-content: space-between; 
+}
+
+.auth-form__controls-back {
+    margin-right: 16px;
+    font-weight: bold;
+    color: black; 
+}
+
+.btn {
+    min-width: 142px;
+    height: 36px;
+    text-decoration: none;
+    border: none;
+    border-radius: 3px;
+    font-size: 18px;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn--normal {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.btn--primary {
+    color: black;
+    background-color: #e6d390;
+    cursor: pointer;
+    min-width: 142px;
+    height: 36px;
+    border: none;
+    border-radius: 3px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold; 
+}
+
+
+/* //////////////// */
+.modal_add {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal__body_add {
+    width: 530px;
+    height: 300px;
+    background-color: white;
+    border-radius: 5px;
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    padding: 20px;
+    position: fixed; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    z-index: 999;
+}
+
+.modal_add.active {
+    display: flex;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal__overlay_add {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    top: 0; 
+    left: 0; 
+    z-index: 998;
+}

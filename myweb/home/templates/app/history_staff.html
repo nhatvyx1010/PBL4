@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        {% load static %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="stylesheet" href="{%static 'css/history.css' %}">
+        <link rel="stylesheet" href="{%static 'css/user.css' %}">
+        <link rel="stylesheet" href="{%static 'css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{%static 'css/all.min.css' %}">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="{%static 'js/all.min.js' %}"></script>
+        <script src="{%static 'js/owl.carousel.min.js' %}"></script>
+        <script>
+            function searchDate() {
+                var input, filter, rows, cell, i, txtValue;
+                input = document.getElementById("searchDateInput");
+                filter = input.value;
+                rows = document.getElementsByClassName("history-data-row");
+        
+                // Lặp qua từng dòng của bảng và ẩn/hiển thị dựa trên ngày
+                for (i = 0; i < rows.length; i++) {
+                    cell = rows[i].getElementsByTagName("td")[1]; // Lấy ô chứa ngày, thay đổi chỉ số nếu cần
+                    if (cell) {
+                        txtValue = cell.textContent || cell.innerText;
+                        var dateParts = filter.split('/');
+                        var formattedDate = dateParts[1] + '-' + dateParts[0] + '-' + dateParts[2];
+                        // Sử dụng includes để kiểm tra xem ngày có chứa giá trị tìm kiếm hay không
+                        if (txtValue.includes(formattedDate)) {
+                            rows[i].style.display = "";
+                        } else {
+                            rows[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+
+            function searchDateIn() {
+                var input, filter, rows, cell, i, txtValue;
+                input = document.getElementById("searchDate");
+                filter = input.value;
+                rows = document.getElementsByClassName("history-data-row");
+                // Lặp qua từng dòng của bảng và ẩn/hiển thị dựa trên ngày giờ vào
+                for (i = 0; i < rows.length; i++) {
+                    cell = rows[i].getElementsByTagName("td")[1]; // Lấy ô chứa ngày giờ vào
+                    if (cell) {
+                    txtValue = cell.textContent || cell.innerText;
+                    if (txtValue.includes(filter)) { // So sánh với ngày được nhập vào
+                        rows[i].style.display = "";
+                    } else {
+                        rows[i].style.display = "none";
+                    }
+                    }
+                }
+                }
+
+            function searchPlate() {
+                var input, filter, rows, cell, i, txtValue;
+                input = document.getElementById("searchPlateInput");
+                filter = input.value.toUpperCase();
+                rows = document.getElementsByClassName("history-data-row");
+
+                // Lặp qua từng dòng của bảng và ẩn/hiển thị dựa trên tên người dùng
+                for (i = 0; i < rows.length; i++) {
+                    cell = rows[i].getElementsByTagName("td")[0]; // Lấy ô chứa tên người dùng, thay đổi chỉ số nếu cần
+                    if (cell) {
+                        txtValue = cell.textContent || cell.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            rows[i].style.display = "";
+                        } else {
+                            rows[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+
+        </script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="header">
+            <h1>HỆ THỐNG QUẢN LÝ BÃI ĐỖ XE</h1>
+        </div>
+        <div class="container">
+            <div class="left-sidebar">
+                <div class="container">
+                    <div class="products">
+                        <div class="product"><a href="{% url 'indexStaff' %}">Trang chủ</a></div>
+                        <div class="product"><a href="{% url 'managerStaff' %}">Quản lý tài khoản</a></div>
+                        <div class="product"><a href="{% url 'historyStaff' %}">Xem lịch sử gửi xe</a></div>
+                        <div class="product"><a href="{% url 'index' %}">Đăng xuất</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="right-content">
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" id="searchPlateInput" placeholder="Nhập biển số xe" oninput="searchPlate()">
+                        <button><i class="fas fa-search"></i></button>
+                        <input type="text" id="searchDate" placeholder="Nhập ngày vào" oninput="searchDateIn()">
+                        <button><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                <h2 class="table-heading" style="text-align: center; margin: 0 auto;">LỊCH SỬ GỬI XE</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Biển số xe</th>
+                            <th>Thời Gian Vào</th>
+                            <th>Thời Gian Ra</th>
+                            <th>Giá tiền</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for history in parking_history %}
+                            <tr class="history-data-row">
+                                <td>{{ history.license_plates.license_plates }}</td>
+                                <td>{{ history.date_in|date:'d-m-Y' }} : {{ history.time_in }} </td>
+                                <td>{{ history.date_out|date:'d-m-Y' }} : {{ history.time_out }}</td>
+                                <td>{{ history.total|floatformat:"0" }} VND</td>
+                                <td class="actions">
+                                    <form action="{% url 'historyStaff1' %}" method="post">
+                                        {% csrf_token %}
+                                        <button class="edit" name="history_id" value="{{ history.parking_historyID }}" >Chi tiết</button>
+                                    </form>
+                                </td>
+                                <td class="actions">
+                                    <form action="{% url 'historyStaff_delete' %}" method="post">
+                                        {% csrf_token %}
+                                        <button name="history_id_delete" value="{{ history.parking_historyID }}" >Xóa</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="modal" id="myModal">
+            <div class="modal__overlay"></div>
+            <div class="modal__body_1">
+                <div class="auth-form">
+                    <div class="auth-form__container">
+                        <div class="auth-form__header">
+                            <h3 class="auth-form__heading">Chi tiết tài khoản</h3>
+                        </div>
+                        <div class="auth-form__form">
+                            <div class="auth-form__group" id="full-name">
+                                <strong>Họ và tên:</strong> NhatVY
+                            </div>
+                            <div class="auth-form__group" id="license-plate">
+                                <strong>Biển số xe:</strong> 43h12121
+                            </div>
+                            <div class="auth-form__group" id="phone-number">
+                                <strong>Số điện thoại:</strong> 012312312
+                            </div>
+                            <div class="auth-form__group" id="address">
+                                <strong>Địa chỉ:</strong>  address 
+                            </div>
+                            <div class="auth-form__group" id="time-in">
+                                <strong>Thời gian vào:</strong>  time_in 
+                            </div>
+                            <div class="auth-form__group" id="time-out">
+                                <strong>Thời gian ra:</strong>  time_out 
+                            </div>
+                            <div class="auth-form__group" id="total-price">
+                                <strong>Giá tiền:</strong>  total_price  VND
+                            </div>
+                        </div>
+                        <div class="auth-form__controls">
+                            <button class="btn btn--normal auth-form__controls-back" id="backButton">TRỞ LẠI</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="{%static 'js/history_User.js' %}"></script>
+
+        <script src="" async defer></script>
+        
+        
+    </body>
+</html>

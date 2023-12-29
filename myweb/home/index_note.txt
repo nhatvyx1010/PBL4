@@ -1,0 +1,135 @@
+       
+# def historyOut(request): 
+#     if request.method == 'POST':
+#         user_plate_out = request.POST.get('user_plate_out', None)
+#         if not user_plate_out:
+#             return redirect('indexStaff')
+
+#         try:
+#             user_plate = LicensePlates.objects.get(license_plates=user_plate_out)
+#         except LicensePlates.DoesNotExist:
+#                 messages.success(request, 'Biển số xe ra không tồn tại')
+#                 return redirect('indexStaff')
+#         try:
+#             history = ParkingHistory.objects.get(license_plates=user_plate, state='0')
+
+#             user_time_in = history.time_in
+#             user_date_in = history.date_in
+#             user_time_out = request.POST['user_time_out']
+#             user_date_out = request.POST['user_date_out']
+
+#             user_time_out = parse_time(user_time_out)
+#             user_date_out = parse_date(user_date_out)
+
+#             datetime_in = datetime.combine(user_date_in, user_time_in)
+#             datetime_out = datetime.combine(user_date_out, user_time_out)
+#             # Tính khoảng thời gian giữa datetime_out và datetime_in
+#             time_difference = datetime_out - datetime_in
+#             minutes = time_difference.total_seconds() / 60
+
+#             history.time_out = user_time_out
+#             history.date_out = user_date_out
+#             if minutes <= 30:
+#                 history.total = 10000
+#             elif minutes > 30 and minutes <= 120:
+#                 history.total = 10000 + int(minutes) * 200
+#             elif minutes > 120:
+#                 history.total = 10000 + int(minutes) * 100
+            
+#             history.state = 1
+#             history.save()
+#             messages.success(request, 'Đăng ký xe ra thành công')
+#             return redirect('indexStaff')
+#         except ParkingHistory.DoesNotExist:
+#             messages.success(request, 'Đăng ký xe ra không thành công')
+#             return redirect('indexStaff')
+
+/////////////////////////////////////////////////////////////////////////////
+
+
+# def historyIn(request): 
+#     if request.method == 'POST':
+#         user_plate_in = request.POST['user_plate_in']
+#         if not user_plate_in:
+#             return redirect('indexStaff')
+        
+#         try:
+#             id = generate_random_parking_history_id()
+#             user_name_in = request.POST['user_name_in']
+#             user_plate_in = request.POST['user_plate_in']
+#             plate_img_in = request.POST['plate_img_in_value']
+#             character_img_in = request.POST['character_img_in_value']
+#             character_in = request.POST['character_in_value']
+#             try:
+#                 user_plates = LicensePlates.objects.get(license_plates=user_plate_in)
+#             except LicensePlates.DoesNotExist:
+#                 messages.success(request, 'Biển số xe vào không tồn tại')
+#                 return redirect('indexStaff')
+            
+#             try:
+#                 pk_old = ParkingHistory.objects.filter(license_plates=user_plates, state=0)
+#                 if(not pk_old):
+#                     user_time_in = request.POST['user_time_in']
+#                     user_date_in = request.POST['user_date_in']
+#                     state = 0
+#                     pkHistory = ParkingHistory(parking_historyID=id, license_plates=user_plates, time_in=user_time_in, date_in=user_date_in, state=state)
+#                     pkHistory.save()
+#                     messages.success(request, 'Đăng ký xe vào thành công')
+#                 else:
+#                     messages.success(request, 'Đăng ký xe vào không thành công')
+#             except ParkingHistory.DoesNotExist:
+#                 messages.success(request, 'Đăng ký xe vào không thành công')
+#                 return redirect('indexStaff')
+#             return redirect('indexStaff')
+#             # response_data = f"{user_name_in}|{user_plate_in}|{plate_img_in}|{character_img_in}|{character_in}"
+#             # return HttpResponse(response_data)
+
+#         except ParkingHistory.DoesNotExist:
+#             return redirect('indexStaff')  
+#             # return HttpResponse(response_data)
+
+
+
+# def historyStaff1(request):
+#     if request.method == 'POST':
+#         try:
+#             users = User.objects.all()  # Lấy tất cả người dùng
+            
+#             parking_history = ParkingHistory.objects.filter(license_plates__licenseplatesuser__userID__in=[user.id for user in users])
+
+#             history_id = request.POST.get('history_id')
+#             history = ParkingHistory.objects.get(parking_historyID=history_id)
+#             time_in = history.time_in
+#             time_out = history.time_out
+#             date_in = history.date_in
+#             date_out = history.date_out
+#             total_price = history.total
+#             user = User.objects.get(id=history.license_plates.licenseplatesuser_set.first().userID)
+#             full_name = user.fullname
+#             license_plate_number = history.license_plates.license_plates
+#             phone_number = user.phone
+#             address = user.position
+
+#             context = {
+#                 'full_name': full_name,
+#                 'license_plate_number': license_plate_number,
+#                 'phone_number': phone_number,
+#                 'address': address,
+#                 'time_in': time_in,
+#                 'date_in': date_in,
+#                 'time_out': time_out,
+#                 'date_out': date_out,
+#                 'total_price': total_price,
+#                 'parking_history': parking_history
+#             }
+#             return render(request, 'app/history_staff_full.html', context)
+#         except ObjectDoesNotExist:
+#             return JsonResponse({'error': 'Parking history with the given ID does not exist'})
+#     return JsonResponse({'error': 'Invalid request'})
+
+# def history_staff(request):
+#     users = User.objects.all()  # Lấy tất cả người dùng
+#     parking_history = ParkingHistory.objects.filter(license_plates__licenseplatesuser__userID__in=[user.id for user in users])
+
+#     context = {'parking_history': parking_history}
+#     return render(request, 'app/history_staff.html', context)

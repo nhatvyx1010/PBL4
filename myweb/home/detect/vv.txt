@@ -1,0 +1,47 @@
+# def capture_image_in(request):
+#     global camera_in
+#     if camera_in is None:
+#         return HttpResponse("Camera is not initialized.")
+
+#     success, frame = camera_in.read()
+#     if not success:
+#         return HttpResponse("Cannot capture image from camera.")
+#     frame_out, _ = detect_dropplate.get_Frame(success, frame)
+#     image_filename = f'frame_1.jpg'
+#     cv2.imwrite(image_filename, frame_out)
+#     ret, jpeg = cv2.imencode('.jpg', frame_out)
+#     frame = jpeg.tobytes()
+#     base64_data = base64.b64encode(frame).decode('utf-8')
+#     return HttpResponse(base64_data)
+# def capture_image_in(request):
+#     global camera_in
+#     if camera_in is None:
+#         return HttpResponse("Camera is not initialized.")
+
+#     success, image = camera_in.read()
+#     if not success:
+#         return HttpResponse("Cannot capture image from camera.")
+
+#     frame_out = detect_dropplate.get_Frame2(success, image)
+    
+#     ret, jpeg = cv2.imencode('.jpg', frame_out)
+#     # frame = jpeg.tobytes()
+#     base64_data = base64.b64encode(jpeg).decode('utf-8')
+#     return HttpResponse(base64_data)
+
+
+# def capture_image_in(request):
+#     global camera_in
+#     if camera_in is None:
+#         return HttpResponse("Camera is not initialized.")
+
+#     success, frame = camera_in.read()
+#     if not success:
+#         return HttpResponse("Cannot capture image from camera.")
+    
+#     cropped_image = crop_image(frame, 100, 100, 400, 400)  # Thay đổi giá trị theo tọa độ cắt mong muốn
+    
+#     ret, jpeg = cv2.imencode('.jpg', cropped_image)
+#     frame = jpeg.tobytes()
+#     base64_data = base64.b64encode(frame).decode('utf-8')
+#     return HttpResponse(base64_data)

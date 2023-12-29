@@ -1,0 +1,288 @@
+http://lcdIP/lcd/carIn?carIdIn=<str:carId>
+
+http://lcdIP/lcd/carOut?carIdOut=<str:carId>&cost=<str:cost>
+GET
+<str:carId>, <str:cost>
+Lấy id xe ra và phí gửi xe
+
+
+
+4. xử lý lỗi thêm trùng biển số         
+5. cập nhật biển số cho user
+6. sắp xếp lịch sử gửi xe staff theo ngày, xe còn trong bãi
+
+
+def historyIn(request): 
+    if request.method == 'POST':
+        user_plate_in = request.POST['user_plate_in']
+        if not user_plate_in:
+            return redirect('indexStaff')
+        
+        try:
+            id = generate_random_parking_history_id()
+            user_name_in = request.POST['user_name_in']
+            user_plate_in = request.POST['user_plate_in']
+            user_plates = LicensePlates.objects.get(license_plates=user_plate_in)
+            
+            pk_old = ParkingHistory.objects.filter(license_plates=user_plates, state=0)
+            if(not pk_old):
+                user_time_in = request.POST['user_time_in']
+                user_date_in = request.POST['user_date_in']
+                state = 0
+                pkHistory = ParkingHistory(parking_historyID=id, license_plates=user_plates, time_in=user_time_in, date_in=user_date_in, state=state)
+                pkHistory.save()
+                messages.success(request, 'Đăng ký thành công')
+            else:
+                messages.success(request, 'Đăng ký không thành công')
+            return redirect('indexStaff')
+
+        except ParkingHistory.DoesNotExist:
+            return redirect('indexStaff')
+
+
+var modalIn = document.getElementById("myModalIn");
+            var submitButtonIn = document.getElementById("submitButtonIn");
+            var modalOut = document.getElementById("myModalOut");
+            var submitButtonOut = document.getElementById("submitButtonOut");
+
+            document.getElementById("AddIn").onclick = function(event) {
+                event.preventDefault(); // Prevent default form submission
+                
+                var userNameIn = document.getElementById("user_name_in").value;
+                var userPlateIn = document.getElementById("user_plate_in").value;
+                var userTimeIn = document.getElementById("user_time_in").value;
+                var userDateIn = document.getElementById("user_date_in").value;
+
+                // Display form data in the modal
+                document.getElementById("fullname_in").innerText = userNameIn;
+                document.getElementById("license_plate_in").innerText = userPlateIn;
+                document.getElementById("time_in").innerText = userTimeIn;
+                document.getElementById("date_in").innerText = userDateIn;
+
+                // Show the modal
+                modalIn.style.display = "block";
+            };
+            document.getElementById("AddOut").onclick = function(event) {
+                event.preventDefault(); // Prevent default form submission
+                
+                var userNameOut = document.getElementById("user_name_out").value;
+                var userPlateOut = document.getElementById("user_plate_out").value;
+                var userTimeOut = document.getElementById("user_time_out").value;
+                var userDateOut = document.getElementById("user_date_out").value;
+
+                // Display form data in the modal
+                document.getElementById("fullname_out").innerText = userNameOut;
+                document.getElementById("license_plate_out").innerText = userPlateOut;
+                document.getElementById("time_out").innerText = userTimeOut;
+                document.getElementById("date_out").innerText = userDateOut;
+
+                // Show the modal
+                modalOut.style.display = "block";
+            };
+
+
+
+// function captureFrameIn() {
+            //     // Call the API to check if capture should be performed
+            //     $.ajax({
+            //         type: "GET",
+            //         url: "{% url 'api/module1' %}", // Replace with your actual API endpoint
+            //         success: function (data) {
+            //             // Parse the JSON response
+            //             var jsonData = JSON.parse(data);
+
+            //             // Check if data is equal to 1
+            //             if (jsonData.module === "data" && jsonData.data === 1) {
+            //                 // Execute the capture logic
+            //                 performCapture();
+            //             } else {
+            //                 // Handle other cases if needed
+            //                 console.log("Data is not equal to 1");
+            //             }
+            //         },
+            //         error: function (error) {
+            //             // Handle error if the API call fails
+            //             console.error("API call failed:", error);
+            //         }
+            //     });
+            // }
+            // function performCapture() {
+            //     var alerts = document.getElementsByClassName('alert');
+            //     for (var i = 0; i < alerts.length; i++) {
+            //         alerts[i].style.display = 'none';
+            //     }
+            //     $.ajax({
+            //         type: "GET",
+            //         url: "{% url 'capture_image_in' %}",
+            //         success: function (data) {
+            //             var dataArr = data.split('|');
+            //             var img1 = new Image();
+            //             var img2 = new Image();
+            //             img1.src = 'data:image/jpeg;base64,' + dataArr[0];
+            //             img2.src = 'data:image/jpeg;base64,' + dataArr[1];
+            //             var kitu = dataArr[2];
+            //             var id = dataArr[3];
+            //             var fullname = dataArr[4];
+            //             var license_plates = dataArr[5]; // Chuyển đổi sang chuỗi
+
+
+            //             document.getElementById('plate_img_in').src = img1.src;
+            //             document.getElementById('character_img_in').src = img2.src;
+            //             document.getElementById('character_in').innerText = kitu;
+            //             document.getElementById('user_name_in').value = fullname;
+            //             document.getElementById('display_user_name_in').value = fullname;
+            //             document.getElementById('user_plate_in').value = license_plates;
+            //             document.getElementById('display_user_plate_in').innerText = license_plates;
+            //         }
+            //     });
+            //     // Example capture logic
+            //     console.log("Capture performed!");
+            // }
+
+
+
+
+// $(document).ready(function () {
+            //     function captureFrameIn() {
+            //         var alerts = document.getElementsByClassName('alert');
+            //         for (var i = 0; i < alerts.length; i++) {
+            //             alerts[i].style.display = 'none';
+            //         }
+            //         $.ajax({
+            //             type: "GET",
+            //             url: "{% url 'capture_image_in' %}",
+            //             success: function (data) {
+            //                 processData(data);
+            //             }
+            //         });
+            //     }
+            //     // Gọi hàm captureFrameIn mỗi giây
+            //     setInterval(captureFrameIn, 1000); // Gửi yêu cầu mỗi giây
+
+            //     // Nếu bạn muốn dừng gửi yêu cầu sau một số lần hoặc điều kiện nào đó, bạn có thể sử dụng clearInterval
+            //     // var interval = setInterval(captureFrameIn, 1000);
+            //     // Sau đó, dừng gửi yêu cầu bằng cách sử dụng clearInterval(interval);
+            // });
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+// var espServer = "http://192.168.43.124"
+            
+            var espServer = "http://192.168.43.219"
+            var lcdServer = "http://192.168.43.4"
+
+            function controlServoIn() {
+                // const angle = document.getElementById("servoAngle").value;
+                // ${angle}
+                fetch(espServer+`/servoIn`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        console.log("Servo controlled");
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+
+            function controlServoOut() {
+                // const angle = document.getElementById("servoAngle").value;
+                // ${angle}
+                fetch(espServer+`/servoOut`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        console.log("Servo controlled");
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+
+
+            function getHongngoaiIn() {
+                fetch(espServer+"/hongNgoaiIn")
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.text();
+                    })
+                    .then((data) => {
+                        console.log("Hongngoai In:", data);
+                        document.getElementById("hong_ngoai_in").value = data;
+                        checkValueIn(); // Gọi checkValueIn khi giá trị được cập nhật
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+
+            function getHongngoaiOut() {
+                fetch(espServer+"/hongNgoaiOut")
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.text();
+                    })
+                    .then((data) => {
+                        console.log("Hongngoai Out:", data);
+                        document.getElementById("hong_ngoai_out").value = data;
+                        checkValueOut(); // Gọi checkValueOut khi giá trị được cập nhật
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+
+            function updateData() {
+                getHongngoaiIn();
+                getHongngoaiOut();
+                getSlot();
+            }
+
+            setInterval(updateData, 1000); // Để gọi updateData() mỗi giây
+
+            function platesInDown() {
+                const plates = document.getElementById("user_plate_in").value;
+                fetch(lcdServer+`/lcd/carid?carId=${plates}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+            function platesOutDown() {
+                const plates = document.getElementById("user_plate_out").value;
+                fetch(lcdServer+`/lcd/carid?carId=${plates}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+            
+            function getSlot() {
+                fetch(espServer+"/Slot")
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.text();
+                    })
+                    .then((data) => {
+                        function controlLCD() {
+                            const slot = document.getElementById("slot").value;
+                            fetch(lcd+`/lcd/slot?slot=${slot}`)
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Network response was not ok');
+                                    }
+                                    console.log("LCD/slot controlled");
+                                })
+                                .catch(error => console.error('Error:', error));
+                        }
+                        console.log("Slot:", data);
+                        document.getElementById("slot").innerText = "còn lại: " + data + " slot";
+                    })
+                    .catch(error => console.error('Error:', error));
+            }

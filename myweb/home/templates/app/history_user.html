@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        {% load static %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="stylesheet" href="{%static 'css/history_user.css' %}">
+        <script src="{%static 'js/all.min.js' %}"></script>
+        <script src="{%static 'js/owl.carousel.min.js' %}"></script>
+
+        
+        <title>Lịch sử tài khoản</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="header">
+            <h1>HỆ THỐNG QUẢN LÝ BÃI ĐỖ XE</h1>
+        </div>
+        <div class="container">
+            <div class="left-sidebar">
+                <div class="container">
+                    <div class="products">
+                        <div class="product"><a href="{% url 'indexUser' %}">Cập nhật thông tin</a></div>
+                        <div class="product"><a href="{% url 'historyUser' %}">Xem lịch sử gửi xe</a></div>
+                        <div class="product"><a href="{% url 'index' %}">Đăng xuất</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="right-content">
+                <h2 class="table-heading">LỊCH SỬ GỬI XE</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Biển số xe</th>
+                            <th>Thời Gian Vào</th>
+                            <th>Thời Gian Ra</th>
+                            <th>Giá tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for history in parking_history %}
+                            <tr>
+                                <td>{{ history.license_plates.license_plates }}</td>
+                                <td>{{ history.date_in|date:'d-m-Y' }} : {{ history.time_in }} </td>
+                                <td>{{ history.date_out|date:'d-m-Y' }} : {{ history.time_out }}</td>
+                                <td>{{ history.total|floatformat:"0" }} VND</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
+        <script src="" async defer></script>
+    </body>
+</html>

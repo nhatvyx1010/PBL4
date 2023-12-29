@@ -1,0 +1,37 @@
+
+
+.bordered-box {
+    border: 2px solid black;
+    padding: 10px;
+    margin: 10px;
+}
+
+/* CSS cho phần bên phải */
+.right-content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+/* CSS cho ô lớn ở phía trên bên trái */
+.big-box {
+    flex: 1; /* Ô này sẽ chiếm nửa chiều rộng của phần bên phải */
+}
+
+/* CSS cho ô hình ảnh nhỏ */
+.small-boxes {
+    flex: 1; /* Ô này sẽ chiếm nửa chiều rộng của phần bên phải */
+    display: flex;
+    flex-direction: column;
+}
+
+.small-box {
+    flex: 1; /* Các ô hình ảnh nhỏ sẽ chiếm bằng nhau theo chiều cao */
+}
+
+/* CSS cho ô thông tin người dùng */
+.user-info-box {
+    flex: 1; /* Ô thông tin người dùng sẽ chiếm nửa chiều rộng của phần bên phải */
+}

@@ -1,0 +1,2 @@
+python manage.py runserver --noreload
+pip install django-autoreload-fix

@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        {% load static %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="stylesheet" href="{%static 'css/Index_Staff.css' %}">
+        <link rel="stylesheet" href="{%static 'css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{%static 'css/all.min.css' %}">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="{%static 'js/all.min.js' %}"></script>
+        <script src="{%static 'js/owl.carousel.min.js' %}"></script>
+        <script src="{%static 'js/history.js' %}"></script>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+        <style>
+            .alert {
+                padding: 5px;
+                border: 2px solid transparent;
+                border-radius: 4px;
+                width: 80%;
+                margin: 0 auto;
+            }
+
+            .alert-success {
+                font-size: large;
+                font-weight: bold;
+                color: rgb(255, 0, 0);
+                background-color: #dff0d8;
+                border-color: rgb(255, 0, 0);
+            }
+        </style>
+        <script>
+            document.getElementById("display_user_name_in").innerHTML = "Chưa có thông tin";
+            document.getElementById("display_user_name_out").innerHTML = "Chưa có thông tin";
+            
+            function updateInputUserPlate() {
+                var select = document.getElementById("user_name_in");
+                var input = document.getElementById("input_user_plate");
+                input.value = select.value;
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                // Open WebSocket connection to the server
+                var ws = new WebSocket('ws://yourserver.com/path');
+                // Set up a callback for when a WebSocket message is received
+                ws.onmessage = function (event) {
+                    var data = JSON.parse(event.data);
+                    if (data.module1 && data.module1 === "1") {
+                        // Call the captureFrameIn function
+                        captureFrameIn();
+                    }
+                    if (data.module2 && data.module2 === "1") {
+                        // Call the captureFrameOut function
+                        captureFrameOut();
+                    }
+                };
+                ws.onopen = function () {
+                    console.log('WebSocket connection established');
+                };
+                ws.onerror = function (error) {
+                    console.log('WebSocket error: ' + error);
+                };
+                ws.onclose = function () {
+                    console.log('WebSocket connection closed');
+                };
+            });
+        </script>
+    </head>
+    <body>
+        <div class="header">
+            <h1>HỆ THỐNG QUẢN LÝ BÃI ĐỖ XE</h1>
+        </div>
+        <div class="container">
+            <div class="left-sidebar">
+                <div class="products">
+                    <div class="product"><a href="{% url 'indexStaff' %}">Trang chủ</a></div>
+                    <div class="product"><a href="{% url 'managerStaff' %}">Quản lý tài khoản</a></div>
+                    <div class="product"><a href="{% url 'historyStaff' %}">Xem lịch sử gửi xe</a></div>
+                    <div class="product"><a href="{% url 'index' %}">Đăng xuất</a></div>
+                </div>
+            </div>
+            <div class="right-content">
+                <div class="content-container">
+                    <div class="left-container">
+                        <h5>camera</h5>
+                        <div class="camera-container">
+                            <div class="camera-left-container">
+                                <img id="video1" src="{% url 'video_feed_in' %}" />
+                        
+                            </div>
+                            <div class="camera-right-container">
+                                <img id="video2" src="{% url 'video_feed_out' %}" />
+                                <!-- <img id="video1" src="{% url 'video_feed_in' %}" /> -->
+                        
+                            </div>
+                        </div>
+                        <h5>plate</h5>
+                        <div class="plate-container">
+                            <div class="plate-left-container">
+                                <img src="" id="plate_img_in">
+                            </div>
+                            <div class="plate-right-container">
+                                <img src="" id="plate_img_out">
+                        
+                            </div>
+                        </div>
+                        <h5>character</h5>
+                        <div class="character-container">
+                            <div class="character-left-container">
+                                <img src="" id="character_img_in">
+                            </div>
+                            <div class="character-right-container">
+                                <img src="" id="character_img_out">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-container">
+                        <h1>BÃI ĐỖ XE THÔNG MINH</h1>
+                        <h4>IN</h4>
+                        <h4>OUT</h4>
+                        <h5>Plate Numbers</h5>
+                        <div class="user-in-container">
+                            <div class="user-in-left">
+                                <h3 id="character_in" ></h3>
+                            </div>
+                            <div class="user-in-left">
+                                <h3 id="character_out" ></h3>
+                            </div>
+                        </div>
+                        <h5>User</h5>
+                        <div class="user-out-container" >
+                                <div class="user-out-left" style="display: block;">
+                                    <img src="">
+                                    
+                                    <!-- action="{% url 'historyIn' %}" -->
+                                <form method="post" action="{% url 'historyIn' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="plate_img_in_value" id="plate_img_in_value">
+                                    <input type="hidden" name="character_img_in_value" id="character_img_in_value">
+                                    <input type="hidden" name="character_in_value" id="character_in_value">
+
+                                    <div>
+                                        <label for="user_name">Tên người dùng:</label>
+                                        <input name="user_name_in" id="user_name_in" hidden></input>
+                                        <!-- <h4 id="display_user_name_in"></h4> -->
+                                        <input type="text" id="display_user_name_in">
+                                        <br>
+                                    </div>
+                                    <div style="margin-bottom: 10px; ">
+                                        <label for="user_plate">Biển số xe:</label>
+                                        <input name="user_plate_in" id="user_plate_in" hidden></input>
+                                        <h4 id="display_user_plate_in"></h4>
+                                        <br>
+                                    </div>
+                                    <div style="margin-bottom: 10px;">
+                                        <label for="user_time_in">Thời gian vào:</label>
+                                        <br>
+                                        <input type="text" id="user_time_in" name="user_time_in">
+                                    </div>
+                                    <div style="margin-bottom: 10px;">
+                                        <label for="user_date_in">Ngày vào:</label>
+                                        <br>
+                                        <input type="text" id="user_date_in" name="user_date_in">
+                                    </div>
+                                    <button id="AddIn" style="width: 80px; height: 50px;" onclick="addHistoryIn()">Xe vào</button>
+
+                                </form>
+                            </div>
+                            <div class="user-out-right" style="display: block;">
+                                <img src="">
+                                <form method="post" action="{% url 'historyOut' %}">
+                                {% csrf_token %}
+                                    <div>
+                                        <label for="user_name">Tên người dùng:</label>
+                                        <input name="user_name_out" id="user_name_out" hidden></input>
+                                        <input type="text" id="display_user_name_out">
+                                        <!-- <h4 id="display_user_name_out"></h4> -->
+                                        <br>
+                                    </div>
+                                    <div style="margin-bottom: 10px; ">
+                                        <label for="user_plate">Biển số xe:</label>
+                                        <input name="user_plate_out" id="user_plate_out" hidden></input>
+                                        <h4 id="display_user_plate_out"></h4>
+                                        <br>
+                                    </div>
+                                    <div style="margin-bottom: 10px;">
+                                        <label for="user_time_out">Thời gian ra:</label>
+                                        <br>
+                                        <input type="text" id="user_time_out" name="user_time_out">
+                                    </div>
+                                    <div style="margin-bottom: 10px;">
+                                        <label for="user_date_out">Ngày ra:</label>
+                                        <br>
+                                        <input type="text" id="user_date_out" name="user_date_out">
+                                    </div>
+                                    <button id="AddOut" style="width: 80px; height: 50px;" onclick="getTotal()">Xe ra</button>
+
+                                </form>
+                            </div>
+                        </div>
+                        <div>
+                            <button id="captureButtonIn" style="width: 80px; height: 50px;">Chụp ảnh IN</button>
+                            <button id="captureButtonOut" style="width: 80px; height: 50px;">Chụp ảnh OUT</button>
+                            <!-- <button onclick="captureFrameIn()" style="width: 80px; height: 50px;">Chụp ảnh</button>
+                            <button onclick="captureFrameOut()" style="width: 80px; height: 50px;">Chụp ảnh</button><br> -->
+                        </div>
+                        <div>
+                            <input type="text" id="module1" name="module1" onblur="checkValue(this)">
+                            <input type="text" id="module2" name="module2" onblur="checkValue(this)">
+                            
+                        </div>
+                        {% for message in messages %}
+                            <div class="alert alert-success" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="myModalIn">
+            <div class="modal__overlay"></div>
+            <div class="modal__body_1">
+                <div class="auth-form">
+                    <div class="auth-form__container">
+                        <div class="auth-form__header">
+                            <h3 class="auth-form__heading">Chi tiết tài khoản</h3>
+                        </div>
+                        <div class="auth-form__form">
+                            <div class="auth-form__group" id="full-name-in">
+                                <strong>Họ và tên:</strong> 
+                            </div>
+                            <div class="auth-form__group" id="license-plate-in">
+                                <strong>Biển số xe:</strong> 
+                            </div>
+                            <div class="auth-form__group" id="time-in">
+                                <strong>Thời gian vào:</strong>  
+                            </div>
+                            <div class="auth-form__group" id="date-in">
+                                <strong>Ngày vào:</strong>  
+                            </div>
+                        </div>
+                        <div class="auth-form__controls">
+                            <button class="btn btn--normal auth-form__controls-back" id="submitButtonIn">Lưu</button>
+                            <button class="btn btn--normal auth-form__controls-back" id="exitButtonIn">Thoát</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal" id="myModalOut">
+            <div class="modal__overlay"></div>
+            <div class="modal__body_1">
+                <div class="auth-form">
+                    <div class="auth-form__container">
+                        <div class="auth-form__header">
+                            <h3 class="auth-form__heading">Chi tiết tài khoản</h3>
+                        </div>
+                        <div class="auth-form__form">
+                            <div class="auth-form__group" id="full-name-out">
+                                <strong>Họ và tên:</strong>
+                            </div>
+                            <div class="auth-form__group" id="license-plate-out">
+                                <strong>Biển số xe:</strong>
+                            </div>
+                            <div class="auth-form__group" id="time-out">
+                                <strong>Thời gian ra:</strong>
+                            </div>
+                            <div class="auth-form__group" id="date-out">
+                                <strong>Ngày ra:</strong> 
+                            </div>
+                            <div class="auth-form__group" id="total-price">
+                                <strong>Giá tiền:</strong>  VND
+                            </div>
+                        </div>
+                        <div class="auth-form__controls">
+                            <button class="btn btn--normal auth-form__controls-back" id="submitButtonOut">Lưu</button>
+                            <button class="btn btn--normal auth-form__controls-back" id="exitButtonOut">Thoát</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <script src="" async defer></script>
+        <script>
+            var inputField_in = document.getElementById('user_time_in');
+            var inputField_out = document.getElementById('user_time_out');
+
+            function updateTime() {
+                var currentTime = new Date();
+                var hours = currentTime.getHours();
+                var minutes = currentTime.getMinutes();
+                var seconds = currentTime.getSeconds();
+
+                // Định dạng thời gian
+                hours = (hours < 10 ? "0" : "") + hours;
+                minutes = (minutes < 10 ? "0" : "") + minutes;
+                seconds = (seconds < 10 ? "0" : "") + seconds;
+
+                // Chuyển đổi thời gian thành chuỗi trong định dạng "HH:MM:SS"
+                var timeString = hours + ":" + minutes + ":" + seconds;
+
+                // Hiển thị thời gian trong trường input
+                inputField_in.value = timeString;
+                inputField_out.value = timeString;
+            }
+
+            // Cập nhật thời gian mỗi giây
+            setInterval(updateTime, 1000);
+
+
+            var inputFieldDate_in = document.getElementById('user_date_in');
+            var inputFieldDate_out = document.getElementById('user_date_out');
+
+            function updateDate() {
+                var currentDate = new Date();
+                var year = currentDate.getFullYear();
+                var month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+                var day = currentDate.getDate().toString().padStart(2, '0');
+
+                // Hiển thị ngày trong trường input
+                inputFieldDate_in.value = year + "-" + month + "-" + day;
+                inputFieldDate_out.value = year + "-" + month + "-" + day;
+            }
+
+            // Cập nhật ngày mỗi giây
+            setInterval(updateDate, 1000);
+            
+
+            // Cập nhật Username
+            function updateInputUserName() {
+                var selectBox = document.getElementById("user_plate_in");
+                var selectBox_name = document.getElementById("user_name_in");
+                selectBox_name_val = selectBox_name.value;
+
+                document.getElementById("fullname_in").innerText = selectBox_name_val;
+            }
+
+
+            // Get the modal
+            var modalIn = document.getElementById("myModalIn");
+            var submitButtonIn = document.getElementById("submitButtonIn");
+            var exitButtonIn = document.getElementById("exitButtonIn");
+            var modalOut = document.getElementById("myModalOut");
+            var submitButtonOut = document.getElementById("submitButtonOut");
+            var exitButtonOut = document.getElementById("exitButtonOut");
+
+
+            document.getElementById("AddIn").onclick = function(event) {
+                event.preventDefault(); // Prevent default form submission
+                // Check if display_user_plate_in is empty
+                var displayUserPlateIn = document.getElementById("display_user_plate_in").innerText.trim();
+                if (displayUserPlateIn === "") {
+                    alert("Biển số xe không được trống!");
+                    return; // Stop execution if display_user_plate_in is empty
+                }
+                    // Capture form data
+                var plateImgIn = document.getElementById("plate_img_in").src;
+                var characterImgIn = document.getElementById("character_img_in").src;
+                var characterIn = document.getElementById("character_in").innerText;
+                var userNameIn = document.getElementById("user_name_in").value;
+                var userPlateIn = document.getElementById("user_plate_in").value;
+                var userTimeIn = document.getElementById("user_time_in").value;
+                var userDateIn = document.getElementById("user_date_in").value;
+
+                // Display form data in the modal
+                document.getElementById("full-name-in").innerText = "Họ và tên: " + userNameIn;
+                document.getElementById("license-plate-in").innerText = "Biển số xe: " + userPlateIn;
+                document.getElementById("time-in").innerText = "Thời gian vào: " + userTimeIn;
+                document.getElementById("date-in").innerText = "Ngày vào: " + userDateIn;
+
+                // Show the modal
+                modalIn.style.display = "block";
+            };
+            document.getElementById("AddOut").onclick = function(event) {
+                event.preventDefault(); // Prevent default form submission
+                // Check if display_user_plate_in is empty
+                var displayUserPlateOut = document.getElementById("display_user_plate_out").innerText.trim();
+                if (displayUserPlateOut === "") {
+                    alert("Biển số xe không được trống!");
+                    return; // Stop execution if display_user_plate_in is empty
+                }
+                   // Capture form data
+                var userNameOut = document.getElementById("user_name_out").value;
+                var userPlateOut = document.getElementById("user_plate_out").value;
+                var userTimeOut = document.getElementById("user_time_out").value;
+                var userDateOut = document.getElementById("user_date_out").value;
+
+                // Display form data in the modal
+                document.getElementById("full-name-out").innerText = "Họ và tên: " + userNameOut;
+                document.getElementById("license-plate-out").innerText = "Biển số xe: " + userPlateOut;
+                document.getElementById("time-out").innerText = "Thời gian ra: " + userTimeOut;
+                document.getElementById("date-out").innerText = "Ngày ra: " + userDateOut;
+
+                // Show the modal
+                modalOut.style.display = "block";
+            };
+
+            // Function to close the modal when the back button is clicked
+            submitButtonIn.onclick = function() {
+                modalIn.style.display = "none";
+                document.getElementById('plate_img_in_value').value = document.getElementById('plate_img_in').src;
+                document.getElementById('character_img_in_value').value = document.getElementById('character_img_in').src;
+                document.getElementById('character_in_value').value = document.getElementById('character_in').innerText;
+                document.forms[0].submit(); // Submit the form
+            };
+            exitButtonIn.onclick = function() {
+                modalIn.style.display = "none";
+            }
+            submitButtonOut.onclick = function() {
+                modalOut.style.display = "none";
+                document.forms[1].submit(); // Submit the form
+            };
+            exitButtonOut.onclick = function() {
+                modalOut.style.display = "none";
+            }
+            
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            };
+
+
+            // ====================================================
+            
+            function captureFrameIn() {
+                var alerts = document.getElementsByClassName('alert');
+                for (var i = 0; i < alerts.length; i++) {
+                    alerts[i].style.display = 'none';
+                }
+                $.ajax({
+                    type: "GET",
+                    url: "{% url 'capture_image_in' %}",
+                    success: function (data) {
+                        processDataIn(data)
+                    }
+                });
+            }
+
+            // Attach click event to the button
+            $("#captureButtonIn").on("click", function() {
+                captureFrameIn();
+            });
+
+            
+            function checkValue(input) {
+                if (input.value === "1") {
+                    captureFrameIn();
+                }
+                else if(input.value === "2"){
+                    captureFrameOut();
+                }
+            }
+
+
+            function captureFrameOut() {
+                var alerts = document.getElementsByClassName('alert');
+                for (var i = 0; i < alerts.length; i++) {
+                    alerts[i].style.display = 'none';
+                }
+                $.ajax({
+                    type: "GET",
+                    url: "{% url 'capture_image_out' %}",
+                    success: function (data) {
+                        processDataOut(data)
+                    }
+                });
+            }
+            // Attach click event to the button
+            $("#captureButtonOut").on("click", function() {
+                console.log("data");
+                captureFrameOut();
+            });
+            
+            // Hàm xử lý dữ liệu
+            function processDataIn(data) {
+                var dataArr = data.split('|');
+                // Xử lý dữ liệu từ 'capture_image_in' hoặc 'capture_image_data' endpoint
+                // Hiển thị dữ liệu, cập nhật các phần tử trên trang, vv
+                var img1 = new Image();
+                var img2 = new Image();
+                img1.src = 'data:image/jpeg;base64,' + dataArr[0];
+                img2.src = 'data:image/jpeg;base64,' + dataArr[1];
+                var kitu = dataArr[2];
+                var id = dataArr[3];
+                var fullname = dataArr[4];
+                var license_plates = dataArr[5];
+
+                document.getElementById('plate_img_in').src = img1.src;
+                document.getElementById('character_img_in').src = img2.src;
+                document.getElementById('character_in').innerText = kitu;
+                document.getElementById('user_name_in').value = fullname;
+                document.getElementById('display_user_name_in').value = fullname;
+                document.getElementById('user_plate_in').value = license_plates;
+                document.getElementById('display_user_plate_in').innerText = license_plates;
+            }
+
+            function processDataOut(data) {
+                var dataArr = data.split('|');
+                // Xử lý dữ liệu từ 'capture_image_in' hoặc 'capture_image_data' endpoint
+                // Hiển thị dữ liệu, cập nhật các phần tử trên trang, vv
+                var img1 = new Image();
+                var img2 = new Image();
+                img1.src = 'data:image/jpeg;base64,' + dataArr[0];
+                img2.src = 'data:image/jpeg;base64,' + dataArr[1];
+                var kitu = dataArr[2];
+                var id = dataArr[3];
+                var fullname = dataArr[4];
+                var license_plates = dataArr[5];
+
+                document.getElementById('plate_img_out').src = img1.src;
+                document.getElementById('character_img_out').src = img2.src;
+                document.getElementById('character_out').innerText = kitu;
+                document.getElementById('user_name_out').value = fullname;
+                document.getElementById('display_user_name_out').value = fullname;
+                document.getElementById('user_plate_out').value = license_plates;
+                document.getElementById('display_user_plate_out').innerText = license_plates;
+            }
+            // =====================================================================
+
+        </script>
+    </body>
+</html>

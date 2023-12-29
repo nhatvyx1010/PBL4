@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        {% load static %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="stylesheet" href="{%static 'css/history.css' %}">
+        <link rel="stylesheet" href="{%static 'css/user.css' %}">
+        <link rel="stylesheet" href="{%static 'css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{%static 'css/all.min.css' %}">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="{%static 'js/all.min.js' %}"></script>
+        <script src="{%static 'js/owl.carousel.min.js' %}"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="header">
+            <h1>HỆ THỐNG QUẢN LÝ BÃI ĐỖ XE</h1>
+        </div>
+        <div class="container">
+            <div class="left-sidebar">
+                <div class="container">
+                    <div class="products">
+                        <div class="product"><a href="{% url 'indexStaff' %}">Trang chủ</a></div>
+                        <div class="product"><a href="{% url 'managerStaff' %}">Quản lý tài khoản</a></div>
+                        <div class="product"><a href="{% url 'historyStaff' %}">Xem lịch sử gửi xe</a></div>
+                        <div class="product"><a href="{% url 'index' %}">Đăng xuất</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="right-content">
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" id="searchPlateInput" placeholder="Nhập biển số xe" oninput="searchPlate()">
+                        <button><i class="fas fa-search"></i></button>
+                        <input type="text" id="searchDate" placeholder="Nhập ngày vào" oninput="searchDateIn()">
+                        <button><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                <h2 class="table-heading" style="text-align: center; margin: 0 auto;">LỊCH SỬ GỬI XE</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Biển số xe</th>
+                            <th>Thời Gian Vào</th>
+                            <th>Thời Gian Ra</th>
+                            <th>Giá tiền</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for history in parking_history %}
+                            <tr>
+                                <td>{{ history.license_plates.license_plates }}</td>
+                                <td>{{ history.date_in|date:'d-m-Y' }} : {{ history.time_in }}</td>
+                                <td>{{ history.date_out|date:'d-m-Y' }} : {{ history.time_out }}</td>
+                                <td>{{ history.total|floatformat:"0" }}VND</td>
+                                <td class="actions">
+                                    <form action="{% url 'historyStaff1' %}" method="post">
+                                        {% csrf_token %}
+                                        <button class="edit" name="history_id" value="{{ history.parking_historyID }}" >Chi tiết</button>
+                                    </form>
+                                </td>
+                                <td class="actions">
+                                    <button>Xóa</button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="modal" id="myModal" style="display: block;">
+            <div class="modal__overlay"></div>
+            <div class="modal__body_1">
+                <div class="auth-form">
+                    <div class="auth-form__container">
+                        <div class="auth-form__header">
+                            <h3 class="auth-form__heading">Chi tiết tài khoản</h3>
+                        </div>
+                        <div class="auth-form__form" style="font-size: larger;">
+                            <div class="auth-form__group" id="full-name" style="margin-bottom: 5px;">
+                                <strong>Họ và tên:</strong> {{ full_name }}
+                            </div>
+                            <div class="auth-form__group" id="license-plate" style="margin-bottom: 5px;">
+                                <strong>Biển số xe:</strong> {{ license_plate_number }}
+                            </div>
+                            <div class="auth-form__group" id="phone-number" style="margin-bottom: 5px;">
+                                <strong>Số điện thoại:</strong> {{ phone_number }}
+                            </div>
+                            <div class="auth-form__group" id="address" style="margin-bottom: 5px;">
+                                <strong>Địa chỉ:</strong>  {{ address }} 
+                            </div>
+                            <div class="auth-form__group" id="time-in" style="margin-bottom: 5px;">
+                                <strong>Thời gian vào:</strong>  {{ time_in }} 
+                            </div>
+                            <div class="auth-form__group" id="date-in" style="margin-bottom: 5px;">
+                                <strong>Ngày vào:</strong>  {{ date_in|date:'Y-m-d' }} 
+                            </div>
+                            <div class="auth-form__group" id="time-out" style="margin-bottom: 5px;">
+                                <strong>Thời gian ra:</strong>  {{ time_out }} 
+                            </div>
+                            <div class="auth-form__group" id="date-out" style="margin-bottom: 5px;">
+                                <strong>Ngày ra:</strong>  {{ date_out|date:'Y-m-d' }} 
+                            </div>
+                            <div class="auth-form__group" id="total-price" style="margin-bottom: 5px; color: blue;">
+                                <strong>Giá tiền:</strong>  {{ total_price }}  VND
+                            </div>
+                        </div>
+                        <div class="auth-form__controls" style="margin-top: 30px;">
+                            <form action="{% url 'historyStaff' %}" method="post">
+                                {% csrf_token %}
+                                <button class="btn btn--normal auth-form__controls-back" id="backButton">TRỞ LẠI</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="{%static 'js/history_User.js' %}"></script>
+
+        <script src="" async defer></script>
+        
+        
+    </body>
+</html>
